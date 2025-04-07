@@ -1,57 +1,64 @@
-// Ambil elemen-elemen dari HTML
-const form = document.getElementById('jadwal-form');
-const tanggalInput = document.getElementById('tanggal');
-const jamInput = document.getElementById('jam');
-const kegiatanInput = document.getElementById('kegiatan');
-const tableBody = document.querySelector('#jadwal-table tbody');
+// script.js
 
-// Fungsi untuk menampilkan jadwal kerja
-function renderJadwal() {
-  // Ambil data jadwal dari LocalStorage
-  const jadwalData = JSON.parse(localStorage.getItem('jadwalKerja')) || [];
+document.addEventListener('DOMContentLoaded', function() {
+    const jadwalForm = document.getElementById('jadwalForm');
+    const jadwalTable = document.getElementById('jadwalTable').getElementsByTagName('tbody')[0];
 
-  // Kosongkan isi tabel
-  tableBody.innerHTML = '';
+    let selectedRow = null; // Variable untuk menandakan baris yang sedang diedit
 
-  // Tampilkan jadwal di tabel
-  jadwalData.forEach(jadwal => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${jadwal.tanggal}</td>
-      <td>${jadwal.jam}</td>
-      <td>${jadwal.kegiatan}</td>
-    `;
-    tableBody.appendChild(row);
-  });
-}
+    // Fungsi untuk menambah jadwal
+    jadwalForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-// Fungsi untuk menyimpan jadwal kerja
-function simpanJadwal(event) {
-  event.preventDefault();
+        const namaKegiatan = document.getElementById('namaKegiatan').value;
+        const jamMulai = document.getElementById('jamMulai').value;
+        const jamSelesai = document.getElementById('jamSelesai').value;
 
-  // Ambil nilai input
-  const tanggal = tanggalInput.value;
-  const jam = jamInput.value;
-  const kegiatan = kegiatanInput.value;
+        // Jika ada baris yang sedang diedit
+        if (selectedRow) {
+            // Update baris yang sedang diedit
+            selectedRow.cells[0].textContent = namaKegiatan;
+            selectedRow.cells[1].textContent = jamMulai;
+            selectedRow.cells[2].textContent = jamSelesai;
 
-  // Ambil data jadwal yang sudah ada dari LocalStorage
-  const jadwalData = JSON.parse(localStorage.getItem('jadwalKerja')) || [];
+            // Reset
+            selectedRow = null;
+        } else {
+            // Tambah baris baru ke tabel
+            const newRow = jadwalTable.insertRow();
 
-  // Tambahkan jadwal baru ke array
-  jadwalData.push({ tanggal, jam, kegiatan });
+            newRow.insertCell(0).textContent = namaKegiatan;
+            newRow.insertCell(1).textContent = jamMulai;
+            newRow.insertCell(2).textContent = jamSelesai;
 
-  // Simpan kembali ke LocalStorage
-  localStorage.setItem('jadwalKerja', JSON.stringify(jadwalData));
+            // Tambahkan tombol Edit dan Hapus ke baris
+            const actionsCell = newRow.insertCell(3);
 
-  // Reset form
-  form.reset();
+            // Tombol Edit
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.classList.add('edit');
+            editButton.onclick = function() {
+                document.getElementById('namaKegiatan').value = newRow.cells[0].textContent;
+                document.getElementById('jamMulai').value = newRow.cells[1].textContent;
+                document.getElementById('jamSelesai').value = newRow.cells[2].textContent;
 
-  // Render ulang jadwal
-  renderJadwal();
-}
+                selectedRow = newRow; // Set baris ini untuk diedit
+            };
 
-// Event listener untuk menyimpan jadwal
-form.addEventListener('submit', simpanJadwal);
+            // Tombol Hapus
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Hapus';
+            deleteButton.classList.add('delete');
+            deleteButton.onclick = function() {
+                jadwalTable.deleteRow(newRow.rowIndex);
+            };
 
-// Panggil fungsi renderJadwal untuk menampilkan data yang sudah ada saat halaman dimuat
-renderJadwal();
+            actionsCell.appendChild(editButton);
+            actionsCell.appendChild(deleteButton);
+        }
+
+        // Reset form
+        jadwalForm.reset();
+    });
+});
