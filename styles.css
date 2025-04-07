@@ -1,0 +1,151 @@
+/* Mengatur font, layout, dan background */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e1e1e, #4e4e4e, #7f7f7f, #111);
+  background-size: 400% 400%;
+  animation: gradientBackground 10s ease infinite;
+  color: #e0e0e0;
+}
+
+/* Animasi gradient background */
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Mengatur container utama */
+.container {
+  background-color: #2c2c2c;
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  border-top: 5px solid #00ff99; /* Neon Green */
+}
+
+/* Membuat tampilan judul lebih menarik */
+h1 {
+  font-size: 2.5rem;
+  color: #00ff99; /* Neon Green */
+  text-shadow: 0 0 10px rgba(0, 255, 153, 0.7), 0 0 20px rgba(0, 255, 153, 0.7);
+  letter-spacing: 2px;
+}
+
+/* Gaya untuk form input dan tombol */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+form input {
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #444;
+  color: #e0e0e0;
+  outline: none;
+  transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+form input:focus {
+  border-color: #00ff99;
+  background-color: #333;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #00ff99; /* Neon Green */
+  color: #1e1e1e;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.5);
+}
+
+button:hover {
+  background-color: #00cc77; /* Slightly darker neon */
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #00b366;
+  box-shadow: 0 0 20px rgba(0, 255, 153, 0.8);
+}
+
+/* Membuat tabel lebih menarik */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+table th {
+  background-color: #00ff99; /* Neon Green */
+  color: #1e1e1e;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+}
+
+table td {
+  background-color: #333;
+  color: #e0e0e0;
+  border-bottom: 1px solid #444;
+  border-radius: 5px;
+}
+
+table tr:hover {
+  background-color: #444;
+}
+
+/* Tambahkan animasi pada tombol */
+button {
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Custom scrollbar untuk tampilan lebih futuristik */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00ff99;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #00cc77;
+}
